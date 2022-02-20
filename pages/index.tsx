@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
+import { signIn } from "next-auth/react";
 
-const Home: NextPage = () => {
+const Login: NextPage = () => {
   return (
     <div className="grid place-items-center h-screen bg-gray-100">
       <div className="text-center flex flex-col space-y-4">
@@ -8,17 +9,17 @@ const Home: NextPage = () => {
         <p className="text-xl text-gray-500">
           Get suggestions based on your listening habits
         </p>
-        <div className="py-3">
-          <a
-            href="#"
+        <div>
+          <button
+            onClick={() => signIn("spotify", { callbackUrl: "/home" })}
             className="py-3 px-6 font-semibold rounded-md bg-emerald-500 text-white hover:bg-emerald-600"
           >
             Log In
-          </a>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Login;
