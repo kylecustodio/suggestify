@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   };
 
   const getTopArtists = async () => {
-    const res = await fetch("api/topArtists");
+    const res = await fetch("/api/topArtists");
     const { items } = await res.json();
     setTopArtists(items);
   };
