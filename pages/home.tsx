@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import TrackTile from "../components/trackTile";
@@ -31,20 +31,14 @@ const Home: NextPage = () => {
     setTopArtists(items);
   };
 
-  const getTop = async () => {
+  useEffect(() => {
     getTopTracks();
     getTopArtists();
-  };
+    console.log("getting top artists and tracks");
+  }, []);
 
   return (
     <div className="container mx-auto">
-      <p>Signed in as {session?.user?.name}</p>
-      <button
-        onClick={getTop}
-        className="py-3 px-6 font-semibold rounded-md bg-emerald-500 text-white hover:bg-emerald-600"
-      >
-        Get Data
-      </button>
       <div className="p-8 w-1/2 bg-white border shadow-md rounded-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold text-slate-900">Top Tracks</h3>
