@@ -26,9 +26,7 @@ const TrackTile: React.FC<TrackTileProps> = ({ track }) => {
         <div className="col-span-2">
           <h1 className="text-md font-semibold text-slate-900">{track.name}</h1>
           <div className="text-sm font-semibold text-slate-500">
-            {track.artists.map((artist) => (
-              <span>{artist.name}</span>
-            ))}
+            {track.artists.map((artist) => artist.name).join(", ")}
           </div>
         </div>
         <div className="text-md font-semibold text-slate-500 col-span-2">

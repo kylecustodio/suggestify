@@ -10,7 +10,7 @@ const ArtistList: React.FC<ArtistListProps> = ({ artists }) => {
   return (
     <ul>
       {artists.map((artist) => (
-        <ArtistTile artist={artist}></ArtistTile>
+        <ArtistTile key={artist.id} artist={artist}></ArtistTile>
       ))}
     </ul>
   );
