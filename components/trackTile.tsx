@@ -1,11 +1,12 @@
 import Image from "next/image";
+import { FC } from "react";
 import { Track } from "spotify-types";
 
-type TrackTileProps = {
+interface TrackTileProps {
   track: Track;
-};
+}
 
-const TrackTile: React.FC<TrackTileProps> = ({ track }) => {
+const TrackTile: FC<TrackTileProps> = ({ track }) => {
   const millisToMinutesAndSeconds = (millis: number) => {
     var minutes = Math.floor(millis / 60000);
     var seconds = Math.round((millis % 60000) / 1000);

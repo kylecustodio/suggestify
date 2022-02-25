@@ -1,12 +1,12 @@
-import React from "react";
 import Image from "next/image";
+import { FC } from "react";
 import { Artist } from "spotify-types";
 
-type ArtistTileProps = {
+interface ArtistTileProps {
   artist: Artist;
-};
+}
 
-const ArtistTile: React.FC<ArtistTileProps> = ({ artist }) => {
+const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
   return (
     <li className="py-3">
       <div className="flex gap-x-4 items-center">

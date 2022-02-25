@@ -1,9 +1,11 @@
-type InfoCardProps = {
+import { FC } from "react";
+
+interface InfoCardProps {
   title: string;
   children: any;
-};
+}
 
-const InfoCard: React.FC<InfoCardProps> = ({ title, children }) => {
+const InfoCard: FC<InfoCardProps> = ({ title, children }) => {
   return (
     <div className="p-8 w-1/2 bg-white border shadow-md rounded-lg">
       <div className="flex justify-between items-center mb-4">

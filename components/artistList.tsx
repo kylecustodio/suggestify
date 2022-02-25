@@ -1,12 +1,12 @@
-import React from "react";
+import { FC } from "react";
 import { Artist } from "spotify-types";
 import ArtistTile from "./artistTile";
 
-type ArtistListProps = {
+interface ArtistListProps {
   artists: Artist[];
-};
+}
 
-const ArtistList: React.FC<ArtistListProps> = ({ artists }) => {
+const ArtistList: FC<ArtistListProps> = ({ artists }) => {
   return (
     <ul>
       {artists.map((artist) => (
