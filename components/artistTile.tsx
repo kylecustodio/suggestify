@@ -27,7 +27,7 @@ const ArtistTile: React.FC<ArtistTileProps> = ({ artist }) => {
           </div>
         </div>
         <div className="text-md font-semibold text-slate-500 text-right">
-          {artist.followers.total + " Followers"}
+          {artist.followers.total.toLocaleString() + " Followers"}
         </div>
       </div>
     </li>
