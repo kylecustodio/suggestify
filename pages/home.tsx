@@ -6,6 +6,7 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import TrackTile from "../components/trackTile";
 import TrackList from "../components/trackList";
 import ArtistList from "../components/artistList";
+import InfoCard from "../components/infoCard";
 
 const timeRanges = [
   { name: "1 month", value: "short_term" },
@@ -39,18 +40,12 @@ const Home: NextPage = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="p-8 w-1/2 bg-white border shadow-md rounded-lg">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-slate-900">Top Tracks</h3>
-        </div>
+      <InfoCard title="Top Tracks">
         <TrackList tracks={topTracks}></TrackList>
-      </div>
-      <div className="p-8 w-1/2 bg-white border shadow-md rounded-lg">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-slate-900">Top Artists</h3>
-        </div>
+      </InfoCard>
+      <InfoCard title="Top Artists">
         <ArtistList artists={topArtists}></ArtistList>
-      </div>
+      </InfoCard>
     </div>
   );
 };
