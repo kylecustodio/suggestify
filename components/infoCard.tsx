@@ -2,7 +2,6 @@ import { FC } from "react";
 
 interface InfoCardProps {
   title: string;
-  children: any;
 }
 
 const InfoCard: FC<InfoCardProps> = ({ title, children }) => {
