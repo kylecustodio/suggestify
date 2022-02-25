@@ -1,9 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Fragment, useEffect, useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import TrackTile from "../components/trackTile";
+import { useEffect, useState } from "react";
 import TrackList from "../components/trackList";
 import ArtistList from "../components/artistList";
 import InfoCard from "../components/infoCard";
