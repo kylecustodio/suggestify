@@ -30,7 +30,7 @@ const TrackTile: FC<TrackTileProps> = ({ track }) => {
             {track.artists.map((artist) => artist.name).join(", ")}
           </div>
         </div>
-        <div className="text-md font-semibold text-slate-500 col-span-2">
+        <div className="invisible lg:visible text-md font-semibold text-slate-500 col-span-2">
           {track.album.name}
         </div>
         <div className="text-md font-semibold text-slate-500 text-right">
