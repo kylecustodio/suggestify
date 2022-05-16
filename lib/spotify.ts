@@ -21,13 +21,13 @@ const getAccessToken = async (refresh_token: any) => {
   return response.json();
 };
 
-export const getTopTracks = async (refresh_token: any) => {
+export const getTopTracks = async (refresh_token: any, time_range: string) => {
   const { access_token } = await getAccessToken(refresh_token);
   return fetch(
     TOP_TRACKS_ENDPOINT +
       new URLSearchParams({
         limit: "10",
-        time_range: "medium_term",
+        time_range: time_range,
       }),
     {
       headers: {
@@ -37,13 +37,13 @@ export const getTopTracks = async (refresh_token: any) => {
   );
 };
 
-export const getTopArtists = async (refresh_token: any) => {
+export const getTopArtists = async (refresh_token: any, time_range: string) => {
   const { access_token } = await getAccessToken(refresh_token);
   return fetch(
     TOP_ARTISTS_ENDPOINT +
       new URLSearchParams({
         limit: "10",
-        time_range: "medium_term",
+        time_range: time_range,
       }),
     {
       headers: {

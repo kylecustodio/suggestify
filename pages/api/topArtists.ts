@@ -4,7 +4,8 @@ import { getTopArtists } from "../../lib/spotify";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
-  const response = await getTopArtists(session?.accessToken);
+  const { time_range } = JSON.parse(req.body);
+  const response = await getTopArtists(session?.accessToken, time_range);
   const { items } = await response.json();
   return res.status(200).json({ items });
 };
