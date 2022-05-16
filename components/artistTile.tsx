@@ -9,7 +9,7 @@ interface ArtistTileProps {
 const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
   return (
     <li className="py-3">
-      <div className="flex gap-x-4 items-center">
+      <div className="grid grid-cols-6 gap-x-1 items-center">
         <div className="w-16 h-16 relative">
           <Image
             src={artist.images[0].url}
@@ -18,7 +18,7 @@ const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
             className="rounded-md"
           />
         </div>
-        <div className="flex-grow">
+        <div className="col-span-3">
           <h1 className="text-md font-semibold text-slate-900">
             {artist.name}
           </h1>
@@ -26,8 +26,10 @@ const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
             {artist.genres.join(", ")}
           </div>
         </div>
-        <div className="text-md font-semibold text-slate-500 text-right">
-          {artist.followers.total.toLocaleString() + " Followers"}
+        <div className="col-span-2">
+          <div className="text-md font-semibold text-slate-500 text-right">
+            {artist.followers.total.toLocaleString() + " Followers"}
+          </div>
         </div>
       </div>
     </li>
