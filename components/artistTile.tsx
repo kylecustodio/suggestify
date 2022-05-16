@@ -22,11 +22,11 @@ const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
           <h1 className="text-md font-semibold text-slate-900">
             {artist.name}
           </h1>
-          <div className="text-sm font-semibold text-slate-500">
+          <div className="text-sm font-semibold text-slate-500 truncate">
             {artist.genres.join(", ")}
           </div>
         </div>
-        <div className="col-span-2">
+        <div className="col-span-2 invisible lg:visible">
           <div className="text-md font-semibold text-slate-500 text-right">
             {artist.followers.total.toLocaleString() + " Followers"}
           </div>
