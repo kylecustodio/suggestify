@@ -16,7 +16,7 @@ const DurationDropdown: FC<DurationDropdownProps> = ({
   return (
     <Listbox value={selected} onChange={onChange}>
       <div className="relative">
-        <Listbox.Button className="w-full bg-white border rounded-lg shadow-md text-slate-900 text-left flex justify-between items-center py-2 px-4">
+        <Listbox.Button className="w-full bg-white border rounded-lg text-slate-900 text-left flex justify-between items-center py-2 px-4">
           <div className="truncate">{selected.display}</div>
           <div>
             <SelectorIcon className="w-5 h-5 text-slate-500 flex items-center"></SelectorIcon>
@@ -29,7 +29,7 @@ const DurationDropdown: FC<DurationDropdownProps> = ({
           leaveTo="opacity-0"
         >
           {/* I'm not sure why I have to set the z-index, the images are being drawn on top for some reason*/}
-          <Listbox.Options className="absolute mt-1 w-full border bg-white overflow-auto rounded-md bg-white py-1 shadow-lg z-50">
+          <Listbox.Options className="absolute mt-1 w-full border bg-white overflow-auto rounded-md bg-white py-1 z-50">
             {options.map((option: any) => (
               <Listbox.Option
                 key={option.value}
