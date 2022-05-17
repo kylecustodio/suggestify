@@ -5,6 +5,7 @@ import TrackList from "../components/trackList";
 import ArtistList from "../components/artistList";
 import InfoCard from "../components/infoCard";
 import DurationDropdown from "../components/durationDropdown";
+import Footer from "../components/footer";
 
 const timeRanges = [
   { display: "1 month", value: "short_term" },
@@ -47,15 +48,15 @@ const Home: NextPage = () => {
 
   return (
     <div className="bg-gray-100">
-      <div className="container mx-auto overflow-hidden">
-        <div className="w-72">
+      <div className="container mx-auto px-4 py-4">
+        <div className="w-36">
           <DurationDropdown
             selected={timeRange}
             onChange={setTimeRange}
             options={timeRanges}
           ></DurationDropdown>
         </div>
-        <div className="flex gap-4 flex-wrap lg:flex-nowrap my-4">
+        <div className="w-full flex gap-4 flex-wrap my-4">
           <InfoCard title="Top Tracks">
             <TrackList tracks={topTracks}></TrackList>
           </InfoCard>
@@ -63,6 +64,7 @@ const Home: NextPage = () => {
             <ArtistList artists={topArtists}></ArtistList>
           </InfoCard>
         </div>
+        <Footer></Footer>
       </div>
     </div>
   );

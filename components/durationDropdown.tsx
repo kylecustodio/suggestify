@@ -16,10 +16,10 @@ const DurationDropdown: FC<DurationDropdownProps> = ({
   return (
     <Listbox value={selected} onChange={onChange}>
       <div className="relative">
-        <Listbox.Button className="w-full bg-white border rounded-lg text-slate-900 text-left flex justify-between items-center py-2 px-4">
+        <Listbox.Button className="w-full bg-white border rounded-lg text-gray-900 text-left flex justify-between items-center py-2 px-4">
           <div className="truncate">{selected.display}</div>
           <div>
-            <SelectorIcon className="w-5 h-5 text-slate-500 flex items-center"></SelectorIcon>
+            <SelectorIcon className="w-5 h-5 text-gray-500 flex items-center"></SelectorIcon>
           </div>
         </Listbox.Button>
         <Transition
@@ -37,9 +37,7 @@ const DurationDropdown: FC<DurationDropdownProps> = ({
                 className={({ active, selected }) =>
                   `relative py-2 px-4 
                   ${
-                    active
-                      ? "bg-emerald-100 text-emerald-900"
-                      : "text-slate-900"
+                    active ? "bg-emerald-100 text-emerald-900" : "text-gray-900"
                   }
                   ${selected ? "bg-emerald-100 text-emerald-900" : null}
                   `
