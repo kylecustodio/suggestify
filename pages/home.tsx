@@ -72,13 +72,6 @@ const Home: NextPage = () => {
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto px-4 py-4">
-        <div className="w-36">
-          <DurationDropdown
-            selected={timeRange}
-            onChange={setTimeRange}
-            options={timeRanges}
-          ></DurationDropdown>
-        </div>
         <button
           onClick={getSuggestionsFromTopTracks}
           className="py-3 px-6 font-semibold rounded-md bg-emerald-500 text-white hover:bg-emerald-600"
@@ -86,14 +79,24 @@ const Home: NextPage = () => {
           Get Suggestions
         </button>
         <div className="w-full flex gap-4 my-4">
-          <InfoCard title="Top Tracks">
+          <div className="py-8 w-full bg-white border rounded-lg">
+            <div className="px-8 flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-gray-900">Top Tracks</h3>
+              <div className="w-36">
+                <DurationDropdown
+                  selected={timeRange}
+                  onChange={setTimeRange}
+                  options={timeRanges}
+                ></DurationDropdown>
+              </div>
+            </div>
             <TrackList tracks={topTracks}></TrackList>
-          </InfoCard>
+          </div>
           <InfoCard title="Suggestions">
             {suggestedTracks.length >= 1 ? (
               <TrackList tracks={suggestedTracks}></TrackList>
             ) : (
-              <div className="text-gray-500">hmm...</div>
+              <div className="px-8 text-gray-500">hmm...</div>
             )}
           </InfoCard>
         </div>

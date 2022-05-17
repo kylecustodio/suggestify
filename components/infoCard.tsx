@@ -6,8 +6,8 @@ interface InfoCardProps {
 
 const InfoCard: FC<InfoCardProps> = ({ title, children }) => {
   return (
-    <div className="p-8 w-full bg-white border rounded-lg">
-      <div className="flex justify-between items-center mb-4">
+    <div className="py-8 w-full bg-white border rounded-lg">
+      <div className="px-8 flex justify-between items-center mb-4">
         <h3 className="text-xl font-bold text-gray-900">{title}</h3>
       </div>
       {children}

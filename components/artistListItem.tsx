@@ -25,8 +25,8 @@ const ArtistListItem: FC<ArtistListItemProps> = ({ artist }) => {
   };
 
   return (
-    <li className="py-3">
-      <div className="flex gap-4 items-center">
+    <li className="py-3 hover:bg-emerald-50 cursor-pointer">
+      <div className="px-8 flex gap-4 items-center">
         <div className="shrink-0 w-16 h-16 relative">
           <Image
             src={artist.images[0].url}
