@@ -8,13 +8,11 @@ type TrackListProps = {
 
 const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
   return (
-    <div>
-      <ul>
-        {tracks.map((track) => (
-          <TrackListItem key={track.id} track={track}></TrackListItem>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {tracks.map((track) => (
+        <TrackListItem key={track.id} track={track}></TrackListItem>
+      ))}
+    </ul>
   );
 };
 
