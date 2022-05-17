@@ -6,6 +6,7 @@ import ArtistList from "../components/artistList";
 import InfoCard from "../components/infoCard";
 import DurationDropdown from "../components/durationDropdown";
 import Footer from "../components/footer";
+import { Artist, Track } from "spotify-types";
 
 const timeRanges = [
   { display: "1 month", value: "short_term" },
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
   const [timeRange, setTimeRange] = useState(timeRanges[0]);
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
+  const [suggestedTracks, setSuggestedTracks] = useState([]);
 
   const getTopTracks = async () => {
     const res = await fetch("/api/topTracks", {
@@ -41,9 +43,30 @@ const Home: NextPage = () => {
     setTopArtists(items);
   };
 
+  const getSuggestionsFromTopTracks = async () => {
+    const seed_tracks = topTracks
+      .slice(0, 5)
+      .map((track: Track) => track.id)
+      .join(",");
+    const seed_artists = (topArtists[0] as Artist).id;
+    const seed_genres = (topArtists[0] as Artist).genres[0];
+    const res = await fetch("/api/suggestions", {
+      method: "POST",
+      body: JSON.stringify({
+        seed_tracks: seed_tracks,
+        seed_artists: "",
+        seed_genres: "",
+      }),
+    });
+    console.log(res);
+    const { tracks } = await res.json();
+    setSuggestedTracks(tracks);
+  };
+
   useEffect(() => {
     getTopTracks();
     getTopArtists();
+    setSuggestedTracks([]);
   }, [timeRange]);
 
   return (
@@ -56,14 +79,28 @@ const Home: NextPage = () => {
             options={timeRanges}
           ></DurationDropdown>
         </div>
-        <div className="w-full flex gap-4 flex-wrap my-4">
+        <button
+          onClick={getSuggestionsFromTopTracks}
+          className="py-3 px-6 font-semibold rounded-md bg-emerald-500 text-white hover:bg-emerald-600"
+        >
+          Get Suggestions
+        </button>
+        <div className="w-full flex gap-4 my-4">
           <InfoCard title="Top Tracks">
             <TrackList tracks={topTracks}></TrackList>
           </InfoCard>
-          <InfoCard title="Top Artists">
-            <ArtistList artists={topArtists}></ArtistList>
+          <InfoCard title="Suggestions">
+            {suggestedTracks.length >= 1 ? (
+              <TrackList tracks={suggestedTracks}></TrackList>
+            ) : (
+              <div className="text-gray-500">hmm...</div>
+            )}
           </InfoCard>
         </div>
+
+        <InfoCard title="Top Artists">
+          <ArtistList artists={topArtists}></ArtistList>
+        </InfoCard>
         <Footer></Footer>
       </div>
     </div>
