@@ -2,11 +2,11 @@ import Image from "next/image";
 import { FC } from "react";
 import { Artist } from "spotify-types";
 
-interface ArtistTileProps {
+interface ArtistListItemProps {
   artist: Artist;
 }
 
-const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
+const ArtistListItem: FC<ArtistListItemProps> = ({ artist }) => {
   const pow = Math.pow,
     floor = Math.floor,
     abs = Math.abs,
@@ -53,4 +53,4 @@ const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
   );
 };
 
-export default ArtistTile;
+export default ArtistListItem;

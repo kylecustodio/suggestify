@@ -1,6 +1,6 @@
 import React from "react";
 import { Track } from "spotify-types";
-import TrackTile from "./trackTile";
+import TrackListItem from "./trackListItem";
 
 type TrackListProps = {
   tracks: Track[];
@@ -11,7 +11,7 @@ const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
     <div>
       <ul>
         {tracks.map((track) => (
-          <TrackTile key={track.id} track={track}></TrackTile>
+          <TrackListItem key={track.id} track={track}></TrackListItem>
         ))}
       </ul>
     </div>
