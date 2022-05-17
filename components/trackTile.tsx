@@ -15,8 +15,8 @@ const TrackTile: FC<TrackTileProps> = ({ track }) => {
 
   return (
     <li className="py-3">
-      <div className="grid grid-cols-6 gap-x-1 items-center">
-        <div className="w-16 h-16 relative">
+      <div className="flex gap-4 items-center">
+        <div className="shrink-0 w-16 h-16 relative">
           <Image
             src={track.album.images[0].url}
             layout="fill"
@@ -24,16 +24,18 @@ const TrackTile: FC<TrackTileProps> = ({ track }) => {
             className="rounded-md"
           />
         </div>
-        <div className="col-span-2">
-          <h1 className="text-md font-semibold text-slate-900">{track.name}</h1>
-          <div className="text-sm font-semibold text-slate-500">
+        <div className="flex-grow w-1/3">
+          <h1 className="text-md font-semibold text-gray-900 truncate">
+            {track.name}
+          </h1>
+          <div className="text-sm font-semibold text-gray-500 truncate">
             {track.artists.map((artist) => artist.name).join(", ")}
           </div>
         </div>
-        <div className="invisible lg:visible text-md font-semibold text-slate-500 col-span-2">
+        <div className="hidden md:block flex-grow w-1/3 text-md font-semibold text-gray-500 truncate">
           {track.album.name}
         </div>
-        <div className="text-md font-semibold text-slate-500 text-right">
+        <div className="hidden md:block text-md font-semibold text-gray-500 text-right">
           {millisToMinutesAndSeconds(track.duration_ms)}
         </div>
       </div>

@@ -26,8 +26,8 @@ const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
 
   return (
     <li className="py-3">
-      <div className="grid grid-cols-6 gap-x-1 items-center">
-        <div className="w-16 h-16 relative">
+      <div className="flex gap-4 items-center">
+        <div className="shrink-0 w-16 h-16 relative">
           <Image
             src={artist.images[0].url}
             layout="fill"
@@ -35,16 +35,16 @@ const ArtistTile: FC<ArtistTileProps> = ({ artist }) => {
             className="rounded-md"
           />
         </div>
-        <div className="col-span-3">
-          <h1 className="text-md font-semibold text-slate-900">
+        <div className="flex-grow w-1/3">
+          <h1 className="text-md font-semibold text-gray-900 truncate">
             {artist.name}
           </h1>
-          <div className="text-sm font-semibold text-slate-500 truncate">
+          <div className="text-sm font-semibold text-gray-500 truncate">
             {artist.genres.join(", ")}
           </div>
         </div>
-        <div className="col-span-2 invisible lg:visible">
-          <div className="text-md font-semibold text-slate-500 text-right">
+        <div className="hidden md:block">
+          <div className="text-md font-semibold text-gray-500 text-right">
             {formatFollowers(artist.followers.total) + " Followers"}
           </div>
         </div>
