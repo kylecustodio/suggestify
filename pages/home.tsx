@@ -51,8 +51,6 @@ const Home: NextPage = () => {
       .slice(0, 5)
       .map((track: Track) => track.id)
       .join(",");
-    const seed_artists = (topArtists[0] as Artist).id;
-    const seed_genres = (topArtists[0] as Artist).genres[0];
     const res = await fetch("/api/suggestions", {
       method: "POST",
       body: JSON.stringify({
