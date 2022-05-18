@@ -1,15 +1,13 @@
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import List from "../components/list";
-import ArtistList from "../components/artistList";
-import InfoCard from "../components/infoCard";
+import { Artist, Track } from "spotify-types";
+import ArtistListItem from "../components/artistListItem";
 import DurationDropdown from "../components/durationDropdown";
 import Footer from "../components/footer";
-import { Artist, Track } from "spotify-types";
+import InfoCard from "../components/infoCard";
+import List from "../components/list";
 import ListItem from "../components/listItem";
 import TrackListItem from "../components/trackListItem";
-import ArtistListItem from "../components/artistListItem";
 
 const timeRanges = [
   { display: "1 month", value: "short_term" },
