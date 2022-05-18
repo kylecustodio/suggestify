@@ -1,12 +1,15 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import TrackList from "../components/trackList";
+import List from "../components/list";
 import ArtistList from "../components/artistList";
 import InfoCard from "../components/infoCard";
 import DurationDropdown from "../components/durationDropdown";
 import Footer from "../components/footer";
 import { Artist, Track } from "spotify-types";
+import ListItem from "../components/listItem";
+import TrackListItem from "../components/trackListItem";
+import ArtistListItem from "../components/artistListItem";
 
 const timeRanges = [
   { display: "1 month", value: "short_term" },
@@ -15,11 +18,11 @@ const timeRanges = [
 ];
 
 const Home: NextPage = () => {
-  const { data: session } = useSession();
   const [timeRange, setTimeRange] = useState(timeRanges[0]);
-  const [topTracks, setTopTracks] = useState([]);
-  const [topArtists, setTopArtists] = useState([]);
-  const [suggestedTracks, setSuggestedTracks] = useState([]);
+  const [topTracks, setTopTracks] = useState<Track[]>([]);
+  const [topArtists, setTopArtists] = useState<Artist[]>([]);
+
+  const [suggestedTracks, setSuggestedTracks] = useState<Track[]>([]);
 
   const getTopTracks = async () => {
     const res = await fetch("/api/topTracks", {
@@ -58,7 +61,6 @@ const Home: NextPage = () => {
         seed_genres: "",
       }),
     });
-    console.log(res);
     const { tracks } = await res.json();
     setSuggestedTracks(tracks);
   };
@@ -66,7 +68,6 @@ const Home: NextPage = () => {
   useEffect(() => {
     getTopTracks();
     getTopArtists();
-    setSuggestedTracks([]);
   }, [timeRange]);
 
   return (
@@ -90,11 +91,23 @@ const Home: NextPage = () => {
                 ></DurationDropdown>
               </div>
             </div>
-            <TrackList tracks={topTracks}></TrackList>
+            <List>
+              {topTracks.map((track: Track) => (
+                <ListItem key={track.id}>
+                  <TrackListItem track={track}></TrackListItem>
+                </ListItem>
+              ))}
+            </List>
           </div>
           <InfoCard title="Suggestions">
             {suggestedTracks.length >= 1 ? (
-              <TrackList tracks={suggestedTracks}></TrackList>
+              <List>
+                {suggestedTracks.map((track: Track) => (
+                  <ListItem key={track.id}>
+                    <TrackListItem track={track}></TrackListItem>
+                  </ListItem>
+                ))}
+              </List>
             ) : (
               <div className="px-8 text-gray-500">hmm...</div>
             )}
@@ -102,7 +115,13 @@ const Home: NextPage = () => {
         </div>
 
         <InfoCard title="Top Artists">
-          <ArtistList artists={topArtists}></ArtistList>
+          <List>
+            {topArtists.map((artist: Artist) => (
+              <ListItem key={artist.id}>
+                <ArtistListItem artist={artist}></ArtistListItem>
+              </ListItem>
+            ))}
+          </List>
         </InfoCard>
         <Footer></Footer>
       </div>
