@@ -21,6 +21,7 @@ const TrackListItem: FC<TrackListItemProps> = ({ track }) => {
           layout="fill"
           objectFit="cover"
           className="rounded-md"
+          priority
         />
       </div>
       <div className="flex-grow w-36 truncate">
