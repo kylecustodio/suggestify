@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { Artist, Track } from "spotify-types";
 import ArtistListItem from "../components/artistListItem";
+import ButtonBar from "../components/buttonBar";
 import DurationDropdown from "../components/durationDropdown";
 import Footer from "../components/footer";
 import InfoCard from "../components/infoCard";
@@ -15,10 +16,21 @@ const timeRanges = [
   { display: "All Time", value: "long_term" },
 ];
 
+enum SeedType {
+  Artist,
+  Track,
+}
+
+const seedTypes = [
+  { display: "Track", value: SeedType.Track },
+  { display: "Artist", value: SeedType.Artist },
+];
+
 const Home: NextPage = () => {
   const [timeRange, setTimeRange] = useState(timeRanges[0]);
   const [topTracks, setTopTracks] = useState<Track[]>([]);
   const [topArtists, setTopArtists] = useState<Artist[]>([]);
+  const [seedType, setSeedType] = useState(seedTypes[0]);
 
   const [suggestedTracks, setSuggestedTracks] = useState<Track[]>([]);
 
@@ -31,6 +43,7 @@ const Home: NextPage = () => {
     });
     const { items } = await res.json();
     setTopTracks(items);
+    getSuggestionsFromTopTracks(items.slice(0, 5));
   };
 
   const getTopArtists = async () => {
@@ -42,13 +55,11 @@ const Home: NextPage = () => {
     });
     const { items } = await res.json();
     setTopArtists(items);
+    getSuggestionsFromTopArtists(items.slice(0, 5));
   };
 
-  const getSuggestionsFromTopTracks = async () => {
-    const seed_tracks = topTracks
-      .slice(0, 5)
-      .map((track: Track) => track.id)
-      .join(",");
+  const getSuggestionsFromTopTracks = async (seed: Track[]) => {
+    const seed_tracks = seed.map((track: Track) => track.id).join(",");
     const res = await fetch("/api/suggestions", {
       method: "POST",
       body: JSON.stringify({
@@ -61,38 +72,53 @@ const Home: NextPage = () => {
     setSuggestedTracks(tracks);
   };
 
+  const getSuggestionsFromTopArtists = async (seed: Artist[]) => {
+    const seed_artists = seed.map((artist: Artist) => artist.id).join(",");
+    const res = await fetch("/api/suggestions", {
+      method: "POST",
+      body: JSON.stringify({
+        seed_tracks: "",
+        seed_artists: seed_artists,
+        seed_genres: "",
+      }),
+    });
+    const { tracks } = await res.json();
+    setSuggestedTracks(tracks);
+  };
+
   useEffect(() => {
-    getTopTracks();
-    getTopArtists();
-  }, [timeRange]);
+    seedType.value === SeedType.Track ? getTopTracks() : getTopArtists();
+  }, [timeRange, seedType]);
 
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto px-4 py-4">
-        <button
-          onClick={getSuggestionsFromTopTracks}
-          className="py-3 px-6 font-semibold rounded-md bg-emerald-500 text-white hover:bg-emerald-600"
-        >
-          Get Suggestions
-        </button>
         <div className="w-full flex gap-4 my-4">
           <div className="py-8 w-full bg-white border rounded-lg">
             <div className="px-8 flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-900">Top Tracks</h3>
-              <div className="w-36">
-                <DurationDropdown
-                  selected={timeRange}
-                  onChange={setTimeRange}
-                  options={timeRanges}
-                ></DurationDropdown>
-              </div>
+              <ButtonBar
+                value={seedType}
+                setValue={setSeedType}
+                options={seedTypes}
+              ></ButtonBar>
+              <ButtonBar
+                value={timeRange}
+                setValue={setTimeRange}
+                options={timeRanges}
+              ></ButtonBar>
             </div>
             <List>
-              {topTracks.map((track: Track) => (
-                <ListItem key={track.id}>
-                  <TrackListItem track={track}></TrackListItem>
-                </ListItem>
-              ))}
+              {seedType.value === SeedType.Track
+                ? topTracks.map((track: Track) => (
+                    <ListItem key={track.id}>
+                      <TrackListItem track={track}></TrackListItem>
+                    </ListItem>
+                  ))
+                : topArtists.map((artist: Artist) => (
+                    <ListItem key={artist.id}>
+                      <ArtistListItem artist={artist}></ArtistListItem>
+                    </ListItem>
+                  ))}
             </List>
           </div>
           <InfoCard title="Suggestions">
@@ -109,16 +135,6 @@ const Home: NextPage = () => {
             )}
           </InfoCard>
         </div>
-
-        <InfoCard title="Top Artists">
-          <List>
-            {topArtists.map((artist: Artist) => (
-              <ListItem key={artist.id}>
-                <ArtistListItem artist={artist}></ArtistListItem>
-              </ListItem>
-            ))}
-          </List>
-        </InfoCard>
         <Footer></Footer>
       </div>
     </div>
