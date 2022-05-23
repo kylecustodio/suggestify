@@ -19,7 +19,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ value, setValue, options }) => {
             className={({ checked }) =>
               `
               ${checked ? "bg-emerald-500 text-white border-none" : "bg-white"}
-              rounded-md py-2 px-4 font-semibold border`
+              rounded-md py-2 px-4 font-semibold border hover:cursor-pointer`
             }
           >
             <div>{option.display}</div>

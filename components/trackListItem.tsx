@@ -20,7 +20,7 @@ const TrackListItem: FC<TrackListItemProps> = ({ track }) => {
           src={track.album.images[0].url}
           layout="fill"
           objectFit="cover"
-          className="rounded-md"
+          className="rounded-md bg-gray-500"
           priority
         />
       </div>

@@ -31,7 +31,8 @@ const ArtistListItem: FC<ArtistListItemProps> = ({ artist }) => {
           src={artist.images[0].url}
           layout="fill"
           objectFit="cover"
-          className="rounded-md"
+          className="rounded-md bg-gray-500"
+          priority
         />
       </div>
       <div className="flex-grow w-1/3">

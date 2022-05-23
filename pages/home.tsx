@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { Artist, Track } from "spotify-types";
 import ArtistListItem from "../components/artistListItem";
 import ButtonBar from "../components/buttonBar";
-import DurationDropdown from "../components/durationDropdown";
 import Footer from "../components/footer";
-import InfoCard from "../components/infoCard";
 import List from "../components/list";
 import ListItem from "../components/listItem";
 import TrackListItem from "../components/trackListItem";
+import { RefreshIcon } from "@heroicons/react/solid";
 
 const timeRanges = [
   { display: "1 month", value: "short_term" },
@@ -58,7 +57,9 @@ const Home: NextPage = () => {
     getSuggestionsFromTopArtists(items.slice(0, 5));
   };
 
-  const getSuggestionsFromTopTracks = async (seed: Track[]) => {
+  const getSuggestionsFromTopTracks = async (
+    seed: Track[] = topTracks.slice(0, 5)
+  ) => {
     const seed_tracks = seed.map((track: Track) => track.id).join(",");
     const res = await fetch("/api/suggestions", {
       method: "POST",
@@ -72,7 +73,9 @@ const Home: NextPage = () => {
     setSuggestedTracks(tracks);
   };
 
-  const getSuggestionsFromTopArtists = async (seed: Artist[]) => {
+  const getSuggestionsFromTopArtists = async (
+    seed: Artist[] = topArtists.slice(0, 5)
+  ) => {
     const seed_artists = seed.map((artist: Artist) => artist.id).join(",");
     const res = await fetch("/api/suggestions", {
       method: "POST",
@@ -121,7 +124,20 @@ const Home: NextPage = () => {
                   ))}
             </List>
           </div>
-          <InfoCard title="Suggestions">
+          <div className="py-8 w-full bg-white border rounded-lg">
+            <div className="px-8 flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-gray-900">Suggestions</h3>
+              <div
+                className="w-10 h-10 text-gray-500 hover:text-white hover:bg-emerald-500 hover:cursor-pointer p-2 rounded-md"
+                onClick={() =>
+                  seedType.value === SeedType.Track
+                    ? getSuggestionsFromTopTracks()
+                    : getSuggestionsFromTopArtists()
+                }
+              >
+                <RefreshIcon></RefreshIcon>
+              </div>
+            </div>
             {suggestedTracks.length >= 1 ? (
               <List>
                 {suggestedTracks.map((track: Track) => (
@@ -133,7 +149,7 @@ const Home: NextPage = () => {
             ) : (
               <div className="px-8 text-gray-500">hmm...</div>
             )}
-          </InfoCard>
+          </div>
         </div>
         <Footer></Footer>
       </div>
