@@ -91,6 +91,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setSuggestedTracks([]);
+    setTopTracks([]);
+    setTopArtists([]);
     seedType.value === SeedType.Track ? getTopTracks() : getTopArtists();
   }, [timeRange, seedType]);
 
@@ -111,19 +113,29 @@ const Home: NextPage = () => {
                 options={timeRanges}
               ></ButtonBar>
             </div>
-            <List>
-              {seedType.value === SeedType.Track
-                ? topTracks.map((track: Track) => (
-                    <ListItem key={track.id}>
-                      <TrackListItem track={track}></TrackListItem>
-                    </ListItem>
-                  ))
-                : topArtists.map((artist: Artist) => (
-                    <ListItem key={artist.id}>
-                      <ArtistListItem artist={artist}></ArtistListItem>
-                    </ListItem>
-                  ))}
-            </List>
+            {(seedType.value === SeedType.Track && topTracks.length >= 1) ||
+            (seedType.value === SeedType.Artist && topArtists.length >= 1) ? (
+              <List>
+                {seedType.value === SeedType.Track
+                  ? topTracks.map((track: Track) => (
+                      <ListItem key={track.id}>
+                        <TrackListItem track={track}></TrackListItem>
+                      </ListItem>
+                    ))
+                  : topArtists.map((artist: Artist) => (
+                      <ListItem key={artist.id}>
+                        <ArtistListItem artist={artist}></ArtistListItem>
+                      </ListItem>
+                    ))}
+              </List>
+            ) : (
+              <div className="flex justify-center items-center">
+                <div
+                  className="w-12 h-12 rounded-full animate-spin
+                    border-4 border-solid border-emerald-500 border-t-transparent"
+                ></div>
+              </div>
+            )}
           </div>
           <div className="py-8 w-full bg-white border rounded-lg">
             <div className="px-8 flex justify-between items-center mb-4">
