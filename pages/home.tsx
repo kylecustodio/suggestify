@@ -90,6 +90,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
+    setSuggestedTracks([]);
     seedType.value === SeedType.Track ? getTopTracks() : getTopArtists();
   }, [timeRange, seedType]);
 
@@ -129,11 +130,12 @@ const Home: NextPage = () => {
               <h3 className="text-xl font-bold text-gray-900">Suggestions</h3>
               <div
                 className="w-10 h-10 text-gray-500 hover:text-white hover:bg-emerald-500 hover:cursor-pointer p-2 rounded-md"
-                onClick={() =>
+                onClick={() => {
+                  setSuggestedTracks([]);
                   seedType.value === SeedType.Track
                     ? getSuggestionsFromTopTracks()
-                    : getSuggestionsFromTopArtists()
-                }
+                    : getSuggestionsFromTopArtists();
+                }}
               >
                 <RefreshIcon></RefreshIcon>
               </div>
@@ -147,7 +149,12 @@ const Home: NextPage = () => {
                 ))}
               </List>
             ) : (
-              <div className="px-8 text-gray-500">hmm...</div>
+              <div className="flex justify-center items-center">
+                <div
+                  className="w-12 h-12 rounded-full animate-spin
+                    border-4 border-solid border-emerald-500 border-t-transparent"
+                ></div>
+              </div>
             )}
           </div>
         </div>
